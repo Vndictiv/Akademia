@@ -3,10 +3,7 @@ package pl.borowik.akademia.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.borowik.akademia.entity.Student;
 import pl.borowik.akademia.service.StudentService;
 
@@ -33,6 +30,16 @@ public class StudentController {
         return "students";
     }
 
+    @PostMapping("/update")
+    public String updateStudent(@RequestParam("studentId") int theId){
+
+        Student theStudent = new Student();
+
+        // ToDo dokończyć update
+
+        return "add-student";
+    }
+
     @GetMapping("/addStudent")
     public String addForm(Model theModel){
 
@@ -49,5 +56,13 @@ public class StudentController {
         studentService.save(theStudent);
 
         return "redirect:/students/list";
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteStudent(@RequestParam("studentId") int theId){
+
+        studentService.deleteById(theId);
+
+        return "students";
     }
 }
