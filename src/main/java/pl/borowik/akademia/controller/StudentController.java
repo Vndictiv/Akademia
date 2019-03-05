@@ -59,7 +59,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteStudent(@RequestParam("studentId") int theId){
+    public String delete(@RequestParam("studentId") int theId){
 
         studentService.deleteById(theId);
 

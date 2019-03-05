@@ -12,9 +12,11 @@ public class LoginController {
         return "login-form";
     }
 
-    @GetMapping
-    public String hello(){
+//    @GetMapping
+//    public String hello(){
 
-        return "hello";
-    }
+//        return "hello";
+//    }
+
+
 }

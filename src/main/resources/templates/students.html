@@ -58,12 +58,13 @@
 
                     <div class="col-small">
                         <!-- Add "delete" button/link -->
-                         <form action="#" th:action="@{/students/delete}" method="POST">
 
-                             <input type="hidden" name="studentId" th:value="${tempStudent.id}" />
+                        <form action="#" th:action="@{/students/delete(studentId=${tempStudent.Id})}" method="POST">
+
+                             <input  type="hidden" name="studentId" th:value="${tempStudent.id}" />
                              <button type="submit" class="btn btn-danger btn-sm"
                                      onclick="if (!(confirm('Are you sure you want to delete this student?'))) return false">
-                                 Delete
+                                     Delete
                              </button>
 
                          </form>
