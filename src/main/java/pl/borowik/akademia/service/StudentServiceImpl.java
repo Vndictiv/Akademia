@@ -6,6 +6,7 @@ import pl.borowik.akademia.dao.StudentRepository;
 import pl.borowik.akademia.entity.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -33,4 +34,22 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(theId);
 
     }
+
+    @Override
+    public Student findById(int theId) {
+
+       Optional<Student> result = studentRepository.findById(theId);
+
+       Student theStudent = null;
+
+       if (result.isPresent()){
+           theStudent = result.get();
+       }
+       else {
+           throw new RuntimeException("Student not found: " + theId);
+       }
+           return theStudent;
+       }
+
+
 }

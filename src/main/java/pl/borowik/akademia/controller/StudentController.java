@@ -31,11 +31,11 @@ public class StudentController {
     }
 
     @PostMapping("/update")
-    public String updateStudent(@RequestParam("studentId") int theId){
+    public String updateStudent(@RequestParam("studentId") int theId, Model theModel){
 
-        Student theStudent = new Student();
+        Student theStudent = studentService.findById(theId);
 
-        // ToDo dokończyć update
+        theModel.addAttribute("tempStudent", theStudent);
 
         return "add-student";
     }
