@@ -25,16 +25,17 @@ public class StudentSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/home").permitAll()
+                .antMatchers("/home",
+                        "/login",
+                        "/resources/**")
+                .permitAll()
                 .antMatchers("/students/list").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/students/**").hasAnyRole("ADMIN").anyRequest().authenticated()
+                .antMatchers("/**").hasAnyRole("ADMIN").anyRequest().authenticated()
                 .and()
-                .formLogin()
+                .formLogin().loginPage("/login")
                 .permitAll()
                 .and()
                 .logout().permitAll();
-
-        http.csrf().disable();
     }
 
     @Bean
