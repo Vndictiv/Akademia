@@ -35,7 +35,7 @@ public class StudentController {
 
         Student theStudent = studentService.findById(theId);
 
-        theModel.addAttribute("tempStudent", theStudent);
+        theModel.addAttribute("student", theStudent);
 
         return "add-student";
     }
@@ -58,11 +58,11 @@ public class StudentController {
         return "redirect:/students/list";
     }
 
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public String delete(@RequestParam("studentId") int theId){
 
         studentService.deleteById(theId);
 
-        return "students";
+        return "redirect:/students/list";
     }
 }

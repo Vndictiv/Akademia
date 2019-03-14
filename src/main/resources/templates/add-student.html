@@ -22,7 +22,7 @@
     <p class="h4 mb-4">Save Student</p>
 
     <form action="#" th:action="@{/students/add}"
-          th:object="${student}" method="POST">
+                     th:object="${student}" method="POST">
 
         <!-- Add hidden form field to handle update -->
         <input type="hidden" th:field="*{id}" />
