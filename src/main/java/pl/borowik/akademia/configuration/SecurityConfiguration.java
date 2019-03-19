@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.borowik.akademia.service.UserService;
 
 @Configuration
@@ -25,6 +25,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserService userService;
+
+ //   @Autowired
+ //   private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
 
     @Override
@@ -39,23 +42,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/home",
-                        "/login", "register/**",
+                        "/loginForm", "/logaut", "register/**",
                         "/resources/**").permitAll()
                 .antMatchers("/students/list").hasAnyRole("ROLE_USER")
-                .antMatchers("/**").hasAnyRole("ROLE_TRAINER").anyRequest().authenticated()
+                .antMatchers("/**").access("hasRole('ROLE_TRAINER')")
                 .and()
+
                 .formLogin()
+                .loginPage("/loginForm")
+                .loginProcessingUrl("/authenticateTheUser").permitAll()
+                .defaultSuccessUrl("/students/list")
+            //    .successHandler(customAuthenticationSuccessHandler)
+                .usernameParameter("username")//
+                .passwordParameter("password")
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout();
             //    .and()
             //    .exceptionHandling().accessDeniedPage("/access-denied");
 
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public static PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean

@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.borowik.akademia.dao.RoleDao;
@@ -29,7 +30,12 @@ public class UserServiceImpl implements UserService {
     private RoleDao roleDao;
 
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
+   // @Autowired
+   // private BCryptPasswordEncoder bCryptPasswordEncoder;  not working
+
+
 
     @Override
     @Transactional
@@ -48,7 +54,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(crmUser.getEmail());
 
         // give user default role of "employee"
-        user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_EMPLOYEE")));
+        user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_USER")));
 
         // save user in the database
         userDao.save(user);

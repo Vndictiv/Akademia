@@ -12,7 +12,7 @@
 	<artifactId>akademia</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>akademia</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Akademia project</description>
 	<packaging>jar</packaging>
 
 	<properties>
